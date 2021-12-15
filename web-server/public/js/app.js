@@ -1,20 +1,24 @@
 const weatherForm = document.querySelector("form");
 const search = document.querySelector("input");
+const messageOne = document.querySelector("#messageOne");
+const messageTwo = document.querySelector("#messageTwo");
 
 weatherForm.addEventListener("submit", (event) => {
   event.preventDefault();
 
   const location = search.value;
 
+  messageOne.textContent = "Loading...";
+  messageTwo.textContent = "";
   if (location) {
     fetch(`http://localhost:3000/weather?location=%22${location}%22`).then(
       (response) => {
         response.json().then((data) => {
           if (data.error) {
-            console.log(data.error);
+            messageOne.textContent = data.error;
           } else {
-            console.log(data.location);
-            console.log(data.forecast);
+            messageOne.textContent = data.location;
+            messageTwo.textContent = data.forecast;
           }
         });
       }
