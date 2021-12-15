@@ -51,6 +51,24 @@ app.get("/weather", (req, res) => {
   });
 });
 
+// Catch all for anyone trying to find something after /help
+app.get("/help/*", (req, res) => {
+  res.render("error", {
+    title: "Error",
+    errorMessage: "Help article not found.",
+    name: "Adam Friedman",
+  });
+});
+
+// 404
+app.get("*", (req, res) => {
+  res.render("error", {
+    title: "Error",
+    errorMessage: "Page not found.",
+    name: "Adam Friedman",
+  });
+});
+
 app.listen(3000, () => {
   console.log("Server started");
 });
