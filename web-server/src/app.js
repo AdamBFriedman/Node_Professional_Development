@@ -45,9 +45,15 @@ app.get("/help", (req, res) => {
 
 // Weather
 app.get("/weather", (req, res) => {
+  if (!req.query.location) {
+    return res.send({
+      error: "You must provide a location.",
+    });
+  }
   res.send({
     forecast: "It is snowing",
     location: "Philadelphia",
+    address: req.query.location,
   });
 });
 
